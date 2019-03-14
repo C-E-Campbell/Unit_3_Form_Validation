@@ -1,4 +1,5 @@
 const $name = $('#name');
+const $ccPayment = $('#payment option:nth-child(2)');
 const $title = $('#title');
 const $otherTitle = $('#other-title');
 const $designTheme = $('#design');
@@ -7,9 +8,9 @@ const $h3Total = $('<h3>Total : $</h3> ');
 const $activites = $('.activities');
 const $checkbox = $('input[type="checkbox"]');
 let $runningTotal = 0;
-const $ccPayment = $('#payment option');
 
-$($name).attr('autofocus', true);
+
+
 // setting the 'Other Job Role' input to hidden  --initial state.
 $($otherTitle).css('display', 'none');
 
@@ -62,7 +63,5 @@ $($checkbox).on('change', function () {
   })
 });
 
-// set credit card to default payment
-$($ccPayment).val('credit card').attr('default', true);
-
-
+// sets the intial payment to credit card.
+$($ccPayment).attr('selected', true);
