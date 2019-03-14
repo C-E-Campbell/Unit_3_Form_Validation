@@ -9,10 +9,15 @@ const $activites = $('.activities');
 const $checkbox = $('input[type="checkbox"]');
 let $runningTotal = 0;
 
-
+// sets the intial payment to credit card.
+$($ccPayment).attr('selected', true);
 
 // setting the 'Other Job Role' input to hidden  --initial state.
 $($otherTitle).css('display', 'none');
+
+// setting autofocus on the first input field
+$($name).attr('autofocus', true);
+
 
 // setting the 'Other Job Role' input to be visible if 'other' is selected.
 $($title).on('click', function () {
@@ -63,5 +68,4 @@ $($checkbox).on('change', function () {
   })
 });
 
-// sets the intial payment to credit card.
-$($ccPayment).attr('selected', true);
+
