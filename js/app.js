@@ -1,25 +1,28 @@
 const $name = $('#name');
+const $defPayment = $('#payment option:nth-child(1)');
 const $ccPayment = $('#payment option:nth-child(2)');
+const $paymentOption = $('#payment');
+const $creditCardDiv = $('#credit-card');
 const $title = $('#title');
 const $otherTitle = $('#other-title');
 const $designTheme = $('#design');
 const $colorDiv = $('#colors-js-puns');
 const $colorOption = $('#color option');
-const $h3Total = $('<h3>Total : $</h3> ');
 const $activities = $('.activities');
 const $checkbox = $('input[type="checkbox"]');
 const $totalCost = $('<h3>Total: $0</h3>')
 
-
 // sets the intial payment to credit card.
-$($ccPayment).attr('selected', true);
-
+//intially hide bitcoin and paypal divs
+$($ccPayment).prop('selected', true);
+$creditCardDiv.next().css('display', 'none');
+$creditCardDiv.next().next().css('display', 'none');
+$($defPayment).prop('disabled', true);
 // setting the 'Other Job Role' input to hidden  --initial state.
 $($otherTitle).css('display', 'none');
 
 // setting autofocus on the first input field
 $name.focus();
-
 
 // setting the 'Other Job Role' input to be visible if 'other' is selected.
 ($title).on('click', function () {
@@ -54,13 +57,10 @@ $name.focus();
       $($colorDiv).hide();
     }
   });
-
-
-
 });
 
-// this HUGE chain of if/else checks the times against each other based the their indices. conflicting times cant be selected.
-// example: index(1) and index(3) happen at the same time -- if (1) is checked, (3) is disabled & vice versa.
+// this chain of if/else checks the times against each other based the their indices. conflicting times cant be selected.
+// example: index(1) and index(3) happen at the same time -- if [1] is checked, [3] is disabled & vice versa.
 $checkbox.change(function () {
   if ($checkbox.eq(1).is(":checked")) {
     $checkbox.eq(3).prop('disabled', true)
@@ -142,4 +142,25 @@ $checkbox.change(function () {
 
   //update the number here
   $totalCost.text(`Total:  $${price}`);
+});
+
+// this handler allows for different payments to show one at a time.
+// example: if paypal was chosen the elements pertaining to bitcoin or credit card are hidden.
+// if the option value === paypal, show paypal (display: '';) and hide bitcoin and credit card by (display: none;)
+$paymentOption.change(function () {
+  if ($paymentOption.val() === 'bitcoin') {
+    $creditCardDiv.css('display', 'none');
+    $creditCardDiv.next().css('display', 'none');
+    $creditCardDiv.next().next().css('display', '');
+  } 
+  else if ($paymentOption.val() === 'paypal') {
+    $creditCardDiv.css('display', 'none');
+    $creditCardDiv.next().next().css('display', 'none');
+    $creditCardDiv.next().css('display', '');
+  } 
+  else if ($paymentOption.val() === 'credit card') {
+    $creditCardDiv.next().css('display', 'none');
+    $creditCardDiv.next().next().css('display', 'none');
+    $creditCardDiv.css('display', '');
+  }
 });
