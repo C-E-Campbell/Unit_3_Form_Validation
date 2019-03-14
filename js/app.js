@@ -38,16 +38,16 @@ $name.focus();
 ($designTheme).on('change', function () {
   ($colorDiv).show();
   ($colorOption).each(function (index, element) {
-    if ($designTheme.val() == 'js puns' && index > 2) {
+    if ($designTheme.val() === 'js puns' && index > 2) {
       $(element).hide();
       $(element).attr('selected', false);
-    } else if ($designTheme.val() == 'js puns' && index <= 2) {
+    } else if ($designTheme.val() === 'js puns' && index <= 2) {
       $(element).attr('selected', true);
       $(element).show();
-    } else if ($designTheme.val() == 'heart js' && index > 2) {
+    } else if ($designTheme.val() === 'heart js' && index > 2) {
       $(element).attr('selected', true);
       $(element).show();
-    } else if ($designTheme.val() == 'heart js' && index <= 2) {
+    } else if ($designTheme.val() === 'heart js' && index <= 2) {
       $(element).hide();
       $(element).attr('selected', false);
     } else {
