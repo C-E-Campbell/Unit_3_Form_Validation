@@ -18,7 +18,7 @@ button {
 body {
 	font: 1em/1.5;
 	color: #dadada;
-	background: #6b0945;
+	background: #4e1237;
 }
 
 header {
@@ -41,7 +41,7 @@ a {
 
 form {
 	padding: .875em 1.875em 1.875em;
-	background: #324353;
+	background: #293347;
 	border-radius: 8px;
 	border: solid 1px #dadada;
 }
@@ -104,7 +104,7 @@ input::placeholder {
 }
 
 input:focus {
-	background: #cf95bb;
+	background: #d39abf;
 	border-color: #dadada;
 	transition: border-color .4s, background-color .4s;
 }
@@ -124,7 +124,7 @@ button {
 }
 
 button:hover {
-	background: #976c87;
+	background: #d39abf;
 }
 
 /* ================================= 
