@@ -16,7 +16,7 @@ $($ccPayment).attr('selected', true);
 $($otherTitle).css('display', 'none');
 
 // setting autofocus on the first input field
-$($name).attr('autofocus', true);
+$($name).attr('autofocus', '');
 
 
 // setting the 'Other Job Role' input to be visible if 'other' is selected.
