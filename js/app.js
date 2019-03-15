@@ -1,4 +1,8 @@
 const $name = $('#name');
+const $email = $('#mail');
+const $ccNum = $('#cc-num');
+const $zip = $('#zip');
+const $cvv = $('#cvv');
 const $defPayment = $('#payment option:nth-child(1)');
 const $ccPayment = $('#payment option:nth-child(2)');
 const $paymentOption = $('#payment');
@@ -11,6 +15,10 @@ const $colorOption = $('#color option');
 const $activities = $('.activities');
 const $checkbox = $('input[type="checkbox"]');
 const $totalCost = $('<h3>Total: $0</h3>')
+const $h5 = $('<h5></h5>')
+
+
+
 
 // sets the intial payment to credit card.
 //intially hide bitcoin and paypal divs
@@ -152,15 +160,79 @@ $paymentOption.change(function () {
     $creditCardDiv.css('display', 'none');
     $creditCardDiv.next().css('display', 'none');
     $creditCardDiv.next().next().css('display', '');
-  } 
-  else if ($paymentOption.val() === 'paypal') {
+  } else if ($paymentOption.val() === 'paypal') {
     $creditCardDiv.css('display', 'none');
     $creditCardDiv.next().next().css('display', 'none');
     $creditCardDiv.next().css('display', '');
-  } 
-  else if ($paymentOption.val() === 'credit card') {
+  } else if ($paymentOption.val() === 'credit card') {
     $creditCardDiv.next().css('display', 'none');
     $creditCardDiv.next().next().css('display', 'none');
     $creditCardDiv.css('display', '');
   }
 });
+// on keyup will compare the name to the name regex using the function checkName. if it fails insert the h5 will css changes.
+$name.keyup(function () {
+  const testName = $name.val();
+  const test = checkName(testName);
+  if (test) {
+    $h5.remove();
+    $name.css('border-color', 'inherit');
+  } else {
+    $h5.insertAfter($name);
+    $h5.text('Please enter a name. Letters only');
+    $h5.css({
+      'color': '#aa2c52',
+      'font-weight': '300',
+      'margin-top': '0',
+      'padding-top': '0'
+    });
+    $name.css('border-color', '#aa2c52');
+  }
+});
+
+$email.keyup(function () {
+  const testEmail = $email.val();
+  const test = checkEmail(testEmail);
+  if (test) {
+    $h5.remove();
+    $email.css('border-color', 'inherit');
+    console.log('pass')
+  } else {
+    $h5.insertAfter($email);
+    $h5.text('Please enter an email.');
+    $h5.css({
+      'color': '#aa2c52',
+      'font-weight': '300',
+      'margin-top': '0',
+      'padding-top': '0'
+    });
+    $email.css('border-color', '#aa2c52');
+    console.log('fail');
+  }
+});
+/*---------- Validation Tests --------------*/
+
+// checks name, lowercase letters only
+function checkName(name) {
+  return /^[a-z, A-Z]*\s*$/.test(name);
+}
+
+// checks for standard email
+function checkEmail(email) {
+  return /[^@]+@[^@.]+\.[a-z]+$/.test(email);
+}
+
+// checks for 3 digit cvv
+function checkCVV(cvv) {
+  return /^\d{3}$/.test(cvv);
+}
+
+// checks for 5 digit zip code
+function checkZip(zip) {
+  return /^\d{5}$/.test(zip);
+}
+
+// checks for a range of 13 to 16 numbers
+function checkCard(card) {
+  return /^[0-9]{13,16}$/.test(card);
+}
