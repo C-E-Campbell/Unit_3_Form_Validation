@@ -16,10 +16,13 @@ const $activities = $('.activities');
 const $checkbox = $('input[type="checkbox"]');
 const $totalCost = $('<h3>Total: $0</h3>');
 const $h5name = $('<h5>Please enter a name. Letters Only</h5>');
-const $h5email = $('<h5>Please enter an email.</h5>');
+const $h5email2 = $('<h5>Email must include @ and be valid.</h5>');
+const $h5email3 = $('<h5>Email must be valid.</h5>');
 const $h5cardNum = $('<h5>Please enter a valid card number. Between 13 - 16 digits. Numbers only.</h5>');
-const $h5cvv = $('<h5>Please enter a valid 3 digit cvv. example: 567.</h5>');
-const $h5zip = $('<h5>Please enter a valid 5 digit zip code. example: 56712.</h5>');
+const $h5cvv = $('<h5>Please enter a 3 digit CVV. Example: 567.</h5>');
+const $h5zip = $('<h5>Please enter a 5 digit ZIP code. Example: 56712.</h5>');
+const $button = $("button[type='submit']");
+const $buttonError = $('<h5>Sorry, You must complete all required fields</h5>');
 
 
 
@@ -178,7 +181,7 @@ $paymentOption.change(function () {
 $name.keyup(function () {
   const testName = $name.val();
   const test = checkName(testName);
-  if (test) {
+  if (test || testName === '') {
     $h5name.remove();
     $name.css('border-color', 'inherit');
   } else {
@@ -197,45 +200,49 @@ $name.keyup(function () {
 $email.keyup(function () {
   const testEmail = $email.val();
   const test = checkEmail(testEmail);
-  if (test) {
-    $h5email.remove();
-    $email.css('border-color', 'inherit');
-    console.log('pass')
-  } else {
-    $h5email.insertAfter($email);
-    $h5email.css({
+  const test2 = checkForAt(testEmail);
+
+  if (!test2) {
+    $h5email3.remove();
+    $h5email2.insertAfter($email);
+    $h5email2.css({
       'color': '#aa2c52',
       'font-weight': '300',
       'margin-top': '0',
       'padding-top': '0'
     });
     $email.css('border-color', '#aa2c52');
-    console.log('fail');
+  } else if (test2) {
+    $h5email2.remove();
+    if (test) {
+
+      $h5email2.remove();
+      $h5email3.remove();
+      $email.css('border-color', 'inherit');
+    } else {
+      $h5email3.insertAfter($email);
+      $h5email3.css({
+        'color': '#aa2c52',
+        'font-weight': '300',
+        'margin-top': '0',
+        'padding-top': '0'
+      });
+      $email.css('border-color', '#aa2c52');
+    }
+  }
+  if ($email.val() === '') {
+    $h5email3.remove();
+    $h5email2.remove();
+
+    $email.css('border-color', '#dadada');
   }
 });
+
 
 $ccNum.keyup(function () {
   const testCard = $ccNum.val();
   const test = checkCard(testCard);
-  if (test) {
-    $h5cardNum.remove();
-    $ccNum.css('border-color', 'inherit');
-  } else {
-    $h5cardNum.insertAfter($creditCardDiv.children().eq(2));
-    $h5cardNum.css({
-      'color': '#aa2c52',
-      'font-weight': '300',
-      'margin-top': '0',
-      'padding-top': '0'
-    });
-    $ccNum.css('border-color', '#aa2c52');
-  }
-});
-
-$ccNum.keyup(function () {
-  const testCard = $ccNum.val();
-  const test = checkCard(testCard);
-  if (test) {
+  if (test || testCard === '') {
     $h5cardNum.remove();
     $ccNum.css('border-color', 'inherit');
   } else {
@@ -253,7 +260,7 @@ $ccNum.keyup(function () {
 $zip.keyup(function () {
   const testZip = $zip.val();
   const test = checkZip(testZip);
-  if (test) {
+  if (test || testZip === '') {
     $h5zip.remove();
     $zip.css('border-color', 'inherit');
   } else {
@@ -271,7 +278,7 @@ $zip.keyup(function () {
 $cvv.keyup(function () {
   const testCVV = $cvv.val();
   const test = checkCVV(testCVV);
-  if (test) {
+  if (test || testCVV === '') {
     $h5cvv.remove();
     $cvv.css('border-color', 'inherit');
   } else {
@@ -288,6 +295,38 @@ $cvv.keyup(function () {
 
 
 
+
+$button.on('click', function (event) {
+  if ($('input[type=checkbox]').is(':checked')) {
+    console.log('boxes are checked');
+    if (checkName($name.val())) {
+      console.log('name is valid');
+      if (checkEmail($email.val())) {
+        console.log('email is valid');
+        if (checkCard($ccNum.val())) {
+          console.log('card works');
+          if (checkZip($Zip.val())) {
+            console.log('valid zip');
+            if (checkCVV($CVV.val())) {
+              console.log('ccv is good!');
+              $buttonError.remove();
+            } 
+          }
+        }
+      }
+    }
+  }else{
+    $buttonError.insertAfter($button);
+    $buttonError.css({
+      'color': '#aa2c52',
+      'font-weight': '300',
+      'margin-top': '0',
+      'padding-top': '0'
+    });
+    
+    event.preventDefault();
+  }
+})
 /*---------- Regex Validation Tests --------------*/
 
 // checks name, lowercase letters only
@@ -299,7 +338,10 @@ function checkName(name) {
 function checkEmail(email) {
   return /[^@]+@[^@.]+\.[a-z]+$/.test(email);
 }
-
+// checks for @ in email
+function checkForAt(email) {
+  return /[^@]+@/.test(email);
+}
 // checks for 3 digit cvv
 function checkCVV(cvv) {
   return /^\d{3}$/.test(cvv);
