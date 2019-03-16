@@ -297,83 +297,51 @@ $cvv.keyup(function () {
 
 
 $button.on('click', function (event) {
+  $buttonError.insertAfter($button);
+  $buttonError.css({
+    'color': '#aa2c52',
+    'font-weight': '300',
+    'margin-top': '0',
+    'padding-top': '0',
+    'display': 'none'
+  });
   if ($('input[type=checkbox]').is(':checked')) {
     console.log('boxes are checked');
     if (checkName($name.val())) {
       console.log('name is valid');
     } else {
-      $buttonError.insertAfter($button);
-      $buttonError.css({
-        'color': '#aa2c52',
-        'font-weight': '300',
-        'margin-top': '0',
-        'padding-top': '0'
-      });
-
       event.preventDefault();
+      $buttonError.slideDown().delay(1500).slideUp();
     }
     if (checkEmail($email.val())) {
       console.log('email is valid');
     } else {
-      $buttonError.insertAfter($button);
-      $buttonError.css({
-        'color': '#aa2c52',
-        'font-weight': '300',
-        'margin-top': '0',
-        'padding-top': '0'
-      });
-
       event.preventDefault();
+      $buttonError.slideDown().delay(1500).slideUp();
     }
     if (checkCard($ccNum.val())) {
       console.log('card works');
     } else {
-      $buttonError.insertAfter($button);
-      $buttonError.css({
-        'color': '#aa2c52',
-        'font-weight': '300',
-        'margin-top': '0',
-        'padding-top': '0'
-      });
-
       event.preventDefault();
+      $buttonError.slideDown().delay(1500).slideUp();
     }
     if (checkZip($Zip.val())) {
       console.log('valid zip');
     } else {
-      $buttonError.insertAfter($button);
-      $buttonError.css({
-        'color': '#aa2c52',
-        'font-weight': '300',
-        'margin-top': '0',
-        'padding-top': '0'
-      });
-
       event.preventDefault();
+      $buttonError.slideDown().delay(1500).slideUp();
     }
     if (checkCVV($CVV.val())) {
       console.log('ccv is good!');
       $buttonError.remove();
     } else {
-      $buttonError.insertAfter($button);
-      $buttonError.css({
-        'color': '#aa2c52',
-        'font-weight': '300',
-        'margin-top': '0',
-        'padding-top': '0'
-      });
-
       event.preventDefault();
+      $buttonError.slideDown().delay(1500).slideUp();
     }
   } else {
-    $buttonError.insertAfter($button);
-    $buttonError.css({
-      'color': '#aa2c52',
-      'font-weight': '300',
-      'margin-top': '0',
-      'padding-top': '0'
-    });
     event.preventDefault();
+    $buttonError.slideDown().delay(1500).slideUp();
+    
   }
 });
 
