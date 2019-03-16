@@ -1,6 +1,7 @@
 <h1>jQuery Validation Form</h1>
 <h3>View Live Site Here</h3>
 https://c-e-campbell.github.io/Unit_3_Form_Validation/
+
 <br>
 <p>This project is a basic form with different validation fields. All values are tested against reg expressions and all values must be valid before the form can be submitted</p><br>
 <li>All fields update on keystroke so once you meet the field requirement the message will go away.</li>
