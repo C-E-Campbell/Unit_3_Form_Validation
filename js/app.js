@@ -325,13 +325,13 @@ $button.on('click', function (event) {
       event.preventDefault();
       $buttonError.slideDown().delay(1500).slideUp();
     }
-    if (checkZip($Zip.val())) {
+    if (checkZip($zip.val())) {
       console.log('valid zip');
     } else {
       event.preventDefault();
       $buttonError.slideDown().delay(1500).slideUp();
     }
-    if (checkCVV($CVV.val())) {
+    if (checkCVV($cvv.val())) {
       console.log('ccv is good!');
       $buttonError.remove();
     } else {
