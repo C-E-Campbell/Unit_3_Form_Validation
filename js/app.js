@@ -177,7 +177,8 @@ $paymentOption.change(function () {
   }
 });
 
-// on keyup will compare the name to the name regex using the function checkName. if it fails insert the h5 will css changes.
+//for all of the following functions
+// on keyup will compare the input field value to the corresponding regex using the function for the field if it fails, insert the error h5 tag, css changes.
 $name.keyup(function () {
   const testName = $name.val();
   const test = checkName(testName);
@@ -233,7 +234,6 @@ $email.keyup(function () {
   if ($email.val() === '') {
     $h5email3.remove();
     $h5email2.remove();
-
     $email.css('border-color', '#dadada');
   }
 });
@@ -293,57 +293,58 @@ $cvv.keyup(function () {
   }
 });
 
+//Here is the final submit button - it checks all values and if they are = true then we can submit, if not, insert error message under the button.
 $button.on('click', function (event) {
-      $buttonError.insertAfter($button);
-      $buttonError.css({
-        'color': '#aa2c52',
-        'font-weight': '300',
-        'margin-top': '0',
-        'padding-top': '0',
-        'display': 'none'
-      });
-      if ($('input[type=checkbox]').is(':checked') &&
-        checkName($name.val()) &&
-        checkEmail($email.val()) &&
-        checkCard($ccNum.val()) &&
-        checkZip($zip.val()) &&
-        checkCVV($cvv.val())) {
-        console.log('everything checks out');
-      } else {
-        $buttonError.fadeIn().delay(1500).slideUp()
-        event.stopPropagation();
-        event.preventDefault();
-      }
-    });
+  $buttonError.insertAfter($button);
+  $buttonError.css({
+    'color': '#aa2c52',
+    'font-weight': '300',
+    'margin-top': '0',
+    'padding-top': '0',
+    'display': 'none'
+  });
+  if ($('input[type=checkbox]').is(':checked') &&
+    checkName($name.val()) &&
+    checkEmail($email.val()) &&
+    checkCard($ccNum.val()) &&
+    checkZip($zip.val()) &&
+    checkCVV($cvv.val())) {
+    console.log('everything checks out');
+  } else {
+    $buttonError.fadeIn().delay(1500).slideUp()
+    event.stopPropagation();
+    event.preventDefault();
+  }
+});
 
 
 
-      /*---------- Regex Validation Tests --------------*/
+/*---------- Regex Validation Tests --------------*/
 
-      // checks name, lowercase letters only
-      function checkName(name) {
-        return /^[a-z, A-Z]*\s*$/.test(name);
-      }
+// checks name, lowercase letters only
+function checkName(name) {
+  return /^[a-z, A-Z]*\s*$/.test(name);
+}
 
-      // checks for standard email
-      function checkEmail(email) {
-        return /[^@]+@[^@.]+\.[a-z]+$/.test(email);
-      }
-      // checks for @ in email
-      function checkForAt(email) {
-        return /[^@]+@/.test(email);
-      }
-      // checks for 3 digit cvv
-      function checkCVV(cvv) {
-        return /^\d{3}$/.test(cvv);
-      }
+// checks for standard email
+function checkEmail(email) {
+  return /[^@]+@[^@.]+\.[a-z]+$/.test(email);
+}
+// checks for @ in email
+function checkForAt(email) {
+  return /[^@]+@/.test(email);
+}
+// checks for 3 digit cvv
+function checkCVV(cvv) {
+  return /^\d{3}$/.test(cvv);
+}
 
-      // checks for 5 digit zip code
-      function checkZip(zip) {
-        return /^\d{5}$/.test(zip);
-      }
+// checks for 5 digit zip code
+function checkZip(zip) {
+  return /^\d{5}$/.test(zip);
+}
 
-      // checks for a range of 13 to 16 numbers
-      function checkCard(card) {
-        return /^[0-9]{13,16}$/.test(card);
-      }
+// checks for a range of 13 to 16 numbers
+function checkCard(card) {
+  return /^[0-9]{13,16}$/.test(card);
+}
