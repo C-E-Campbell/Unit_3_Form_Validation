@@ -3,6 +3,7 @@
 https://c-e-campbell.github.io/Unit_3_Form_Validation/
 <hr>
 <br>
+<h2>Overview:</h2>
 <h4>This project is a basic form with different validation fields. All values are tested against reg expressions and all values must be valid before the form can be submitted. All Js is written with jQuery to show I know the library - Can be done in vanilla Js just as easily!</h4><br>
 <h2>Features:</h2>
 <li>All fields update on keystroke so once you meet the field requirement the message will go away.</li>
