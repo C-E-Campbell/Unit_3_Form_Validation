@@ -181,11 +181,13 @@ $paymentOption.change(function () {
 
 //for all of the following functions
 // on keyup will compare the input field value to the corresponding regex using the function for the field if it fails, insert the error h5 tag, css changes.
+//using keyup to make it feel more dynamic.
+// there is one keyup for each input field.
 $name.keyup(function () {
   const testName = $name.val();
   const test = checkName(testName);
   console.log(test);
-  if(test || testName === '') {
+  if (test || testName === '') {
     $h5name.remove();
     $name.css('border-color', 'inherit');
   } else {
