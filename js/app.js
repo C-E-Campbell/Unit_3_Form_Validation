@@ -320,6 +320,7 @@ $button.on('click', function (event) {
         'margin-top': '0',
         'padding-top': '0'
       });
+      $checkboxError.fadeIn().delay(1500).slideUp()
     }
     $buttonError.fadeIn().delay(1500).slideUp()
     event.stopPropagation();
