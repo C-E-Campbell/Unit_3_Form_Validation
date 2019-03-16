@@ -153,7 +153,7 @@ $checkbox.change(function () {
       price += 100;
     }
   });
-
+  $totalCost.css('color', '#5d815d');
   //update the number here
   $totalCost.text(`Total:  $${price}`);
 });
