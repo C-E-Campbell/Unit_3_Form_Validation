@@ -301,21 +301,71 @@ $button.on('click', function (event) {
     console.log('boxes are checked');
     if (checkName($name.val())) {
       console.log('name is valid');
-      if (checkEmail($email.val())) {
-        console.log('email is valid');
-        if (checkCard($ccNum.val())) {
-          console.log('card works');
-          if (checkZip($Zip.val())) {
-            console.log('valid zip');
-            if (checkCVV($CVV.val())) {
-              console.log('ccv is good!');
-              $buttonError.remove();
-            } 
-          }
-        }
-      }
+    } else {
+      $buttonError.insertAfter($button);
+      $buttonError.css({
+        'color': '#aa2c52',
+        'font-weight': '300',
+        'margin-top': '0',
+        'padding-top': '0'
+      });
+
+      event.preventDefault();
     }
-  }else{
+    if (checkEmail($email.val())) {
+      console.log('email is valid');
+    } else {
+      $buttonError.insertAfter($button);
+      $buttonError.css({
+        'color': '#aa2c52',
+        'font-weight': '300',
+        'margin-top': '0',
+        'padding-top': '0'
+      });
+
+      event.preventDefault();
+    }
+    if (checkCard($ccNum.val())) {
+      console.log('card works');
+    } else {
+      $buttonError.insertAfter($button);
+      $buttonError.css({
+        'color': '#aa2c52',
+        'font-weight': '300',
+        'margin-top': '0',
+        'padding-top': '0'
+      });
+
+      event.preventDefault();
+    }
+    if (checkZip($Zip.val())) {
+      console.log('valid zip');
+    } else {
+      $buttonError.insertAfter($button);
+      $buttonError.css({
+        'color': '#aa2c52',
+        'font-weight': '300',
+        'margin-top': '0',
+        'padding-top': '0'
+      });
+
+      event.preventDefault();
+    }
+    if (checkCVV($CVV.val())) {
+      console.log('ccv is good!');
+      $buttonError.remove();
+    } else {
+      $buttonError.insertAfter($button);
+      $buttonError.css({
+        'color': '#aa2c52',
+        'font-weight': '300',
+        'margin-top': '0',
+        'padding-top': '0'
+      });
+
+      event.preventDefault();
+    }
+  } else {
     $buttonError.insertAfter($button);
     $buttonError.css({
       'color': '#aa2c52',
@@ -323,10 +373,10 @@ $button.on('click', function (event) {
       'margin-top': '0',
       'padding-top': '0'
     });
-    
     event.preventDefault();
   }
-})
+});
+
 /*---------- Regex Validation Tests --------------*/
 
 // checks name, lowercase letters only
