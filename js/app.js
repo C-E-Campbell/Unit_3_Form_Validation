@@ -14,9 +14,12 @@ const $colorDiv = $('#colors-js-puns');
 const $colorOption = $('#color option');
 const $activities = $('.activities');
 const $checkbox = $('input[type="checkbox"]');
-const $totalCost = $('<h3>Total: $0</h3>')
-const $h5 = $('<h5></h5>')
-
+const $totalCost = $('<h3>Total: $0</h3>');
+const $h5name = $('<h5>Please enter a name. Letters Only</h5>');
+const $h5email = $('<h5>Please enter an email.</h5>');
+const $h5cardNum = $('<h5>Please enter a valid card number. Between 13 - 16 digits. Numbers only.</h5>');
+const $h5cvv = $('<h5>Please enter a valid 3 digit cvv. example: 567.</h5>');
+const $h5zip = $('<h5>Please enter a valid 5 digit zip code. example: 56712.</h5>');
 
 
 
@@ -170,17 +173,18 @@ $paymentOption.change(function () {
     $creditCardDiv.css('display', '');
   }
 });
+
 // on keyup will compare the name to the name regex using the function checkName. if it fails insert the h5 will css changes.
 $name.keyup(function () {
   const testName = $name.val();
   const test = checkName(testName);
   if (test) {
-    $h5.remove();
+    $h5name.remove();
     $name.css('border-color', 'inherit');
   } else {
-    $h5.insertAfter($name);
-    $h5.text('Please enter a name. Letters only');
-    $h5.css({
+    $h5name.insertAfter($name);
+
+    $h5name.css({
       'color': '#aa2c52',
       'font-weight': '300',
       'margin-top': '0',
@@ -194,13 +198,12 @@ $email.keyup(function () {
   const testEmail = $email.val();
   const test = checkEmail(testEmail);
   if (test) {
-    $h5.remove();
+    $h5email.remove();
     $email.css('border-color', 'inherit');
     console.log('pass')
   } else {
-    $h5.insertAfter($email);
-    $h5.text('Please enter an email.');
-    $h5.css({
+    $h5email.insertAfter($email);
+    $h5email.css({
       'color': '#aa2c52',
       'font-weight': '300',
       'margin-top': '0',
@@ -210,7 +213,82 @@ $email.keyup(function () {
     console.log('fail');
   }
 });
-/*---------- Validation Tests --------------*/
+
+$ccNum.keyup(function () {
+  const testCard = $ccNum.val();
+  const test = checkCard(testCard);
+  if (test) {
+    $h5cardNum.remove();
+    $ccNum.css('border-color', 'inherit');
+  } else {
+    $h5cardNum.insertAfter($creditCardDiv.children().eq(2));
+    $h5cardNum.css({
+      'color': '#aa2c52',
+      'font-weight': '300',
+      'margin-top': '0',
+      'padding-top': '0'
+    });
+    $ccNum.css('border-color', '#aa2c52');
+  }
+});
+
+$ccNum.keyup(function () {
+  const testCard = $ccNum.val();
+  const test = checkCard(testCard);
+  if (test) {
+    $h5cardNum.remove();
+    $ccNum.css('border-color', 'inherit');
+  } else {
+    $h5cardNum.insertAfter($creditCardDiv.children().eq(2));
+    $h5cardNum.css({
+      'color': '#aa2c52',
+      'font-weight': '300',
+      'margin-top': '0',
+      'padding-top': '0'
+    });
+    $ccNum.css('border-color', '#aa2c52');
+  }
+});
+
+$zip.keyup(function () {
+  const testZip = $zip.val();
+  const test = checkZip(testZip);
+  if (test) {
+    $h5zip.remove();
+    $zip.css('border-color', 'inherit');
+  } else {
+    $h5zip.insertAfter($creditCardDiv.children().eq(2));
+    $h5zip.css({
+      'color': '#aa2c52',
+      'font-weight': '300',
+      'margin-top': '0',
+      'padding-top': '0'
+    });
+    $zip.css('border-color', '#aa2c52');
+  }
+});
+
+$cvv.keyup(function () {
+  const testCVV = $cvv.val();
+  const test = checkCVV(testCVV);
+  if (test) {
+    $h5cvv.remove();
+    $cvv.css('border-color', 'inherit');
+  } else {
+    $h5cvv.insertAfter($creditCardDiv.children().eq(2));
+    $h5cvv.css({
+      'color': '#aa2c52',
+      'font-weight': '300',
+      'margin-top': '0',
+      'padding-top': '0'
+    });
+    $cvv.css('border-color', '#aa2c52');
+  }
+});
+
+
+
+/*---------- Regex Validation Tests --------------*/
 
 // checks name, lowercase letters only
 function checkName(name) {
