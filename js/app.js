@@ -293,84 +293,57 @@ $cvv.keyup(function () {
   }
 });
 
-
-
-
 $button.on('click', function (event) {
-  $buttonError.insertAfter($button);
-  $buttonError.css({
-    'color': '#aa2c52',
-    'font-weight': '300',
-    'margin-top': '0',
-    'padding-top': '0',
-    'display': 'none'
-  });
-  if ($('input[type=checkbox]').is(':checked')) {
-    console.log('boxes are checked');
-    if (checkName($name.val())) {
-      console.log('name is valid');
-    } else {
-      event.preventDefault();
-      $buttonError.slideDown().delay(1500).slideUp();
-    }
-    if (checkEmail($email.val())) {
-      console.log('email is valid');
-    } else {
-      event.preventDefault();
-      $buttonError.slideDown().delay(1500).slideUp();
-    }
-    if (checkCard($ccNum.val())) {
-      console.log('card works');
-    } else {
-      event.preventDefault();
-      $buttonError.slideDown().delay(1500).slideUp();
-    }
-    if (checkZip($Zip.val())) {
-      console.log('valid zip');
-    } else {
-      event.preventDefault();
-      $buttonError.slideDown().delay(1500).slideUp();
-    }
-    if (checkCVV($CVV.val())) {
-      console.log('ccv is good!');
-      $buttonError.remove();
-    } else {
-      event.preventDefault();
-      $buttonError.slideDown().delay(1500).slideUp();
-    }
-  } else {
-    event.preventDefault();
-    $buttonError.slideDown().delay(1500).slideUp();
-    
-  }
-});
+      $buttonError.insertAfter($button);
+      $buttonError.css({
+        'color': '#aa2c52',
+        'font-weight': '300',
+        'margin-top': '0',
+        'padding-top': '0',
+        'display': 'none'
+      });
+      if ($('input[type=checkbox]').is(':checked') &&
+        checkName($name.val()) &&
+        checkEmail($email.val()) &&
+        checkCard($ccNum.val()) &&
+        checkZip($zip.val()) &&
+        checkCVV($cvv.val())) {
+        console.log('everything checks out');
+      } else {
+        $buttonError.fadeIn().delay(1500).slideUp()
+        event.stopPropagation();
+        event.preventDefault();
+      }
+    });
 
-/*---------- Regex Validation Tests --------------*/
 
-// checks name, lowercase letters only
-function checkName(name) {
-  return /^[a-z, A-Z]*\s*$/.test(name);
-}
 
-// checks for standard email
-function checkEmail(email) {
-  return /[^@]+@[^@.]+\.[a-z]+$/.test(email);
-}
-// checks for @ in email
-function checkForAt(email) {
-  return /[^@]+@/.test(email);
-}
-// checks for 3 digit cvv
-function checkCVV(cvv) {
-  return /^\d{3}$/.test(cvv);
-}
+      /*---------- Regex Validation Tests --------------*/
 
-// checks for 5 digit zip code
-function checkZip(zip) {
-  return /^\d{5}$/.test(zip);
-}
+      // checks name, lowercase letters only
+      function checkName(name) {
+        return /^[a-z, A-Z]*\s*$/.test(name);
+      }
 
-// checks for a range of 13 to 16 numbers
-function checkCard(card) {
-  return /^[0-9]{13,16}$/.test(card);
-}
+      // checks for standard email
+      function checkEmail(email) {
+        return /[^@]+@[^@.]+\.[a-z]+$/.test(email);
+      }
+      // checks for @ in email
+      function checkForAt(email) {
+        return /[^@]+@/.test(email);
+      }
+      // checks for 3 digit cvv
+      function checkCVV(cvv) {
+        return /^\d{3}$/.test(cvv);
+      }
+
+      // checks for 5 digit zip code
+      function checkZip(zip) {
+        return /^\d{5}$/.test(zip);
+      }
+
+      // checks for a range of 13 to 16 numbers
+      function checkCard(card) {
+        return /^[0-9]{13,16}$/.test(card);
+      }
