@@ -22,7 +22,7 @@ const $h5cardNum = $('<h5>Please enter a valid card number. Between 13 - 16 digi
 const $h5cvv = $('<h5>Please enter a 3 digit CVV. Example: 567.</h5>');
 const $h5zip = $('<h5>Please enter a 5 digit ZIP code. Example: 56712.</h5>');
 const $button = $("button[type='submit']");
-const $buttonError = $('<h5>Sorry, You must complete all required fields</h5>');
+const $buttonError = $('<h5>Sorry, You must complete all required fields.</h5>');
 
 
 
