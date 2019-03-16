@@ -24,8 +24,9 @@ const $h5zip = $('<h5>Please enter a 5 digit ZIP code. Example: 56712.</h5>');
 const $button = $("button[type='submit']");
 const $buttonError = $('<h5>Sorry, You must complete all required fields.</h5>');
 const $checkboxError = $('<h5>Sorry, You must check at least one activity.</h5>');
-
-
+const $required = $('<h5>* Required</h5>');
+const $requiredEmail = $('<h5>* Required</h5>');
+const $requiredName = $('<h5>* Required</h5>');
 
 // sets the intial payment to credit card.
 //intially hide bitcoin and paypal divs
@@ -183,12 +184,12 @@ $paymentOption.change(function () {
 $name.keyup(function () {
   const testName = $name.val();
   const test = checkName(testName);
-  if (test || testName === '') {
+  console.log(test);
+  if(test || testName === '') {
     $h5name.remove();
     $name.css('border-color', 'inherit');
   } else {
     $h5name.insertAfter($name);
-
     $h5name.css({
       'color': '#aa2c52',
       'font-weight': '300',
@@ -243,7 +244,7 @@ $email.keyup(function () {
 $ccNum.keyup(function () {
   const testCard = $ccNum.val();
   const test = checkCard(testCard);
-  if (test || testCard === '') {
+  if (test) {
     $h5cardNum.remove();
     $ccNum.css('border-color', 'inherit');
   } else {
@@ -312,7 +313,7 @@ $button.on('click', function (event) {
     checkCVV($cvv.val())) {
     console.log('everything checks out');
   } else {
-    if(!$('input[type=checkbox]').is(':checked')){
+    if (!$('input[type=checkbox]').is(':checked')) {
       $checkboxError.insertAfter($activities);
       $checkboxError.css({
         'color': '#aa2c52',
@@ -322,9 +323,41 @@ $button.on('click', function (event) {
       });
       $checkboxError.fadeIn().delay(3000).slideUp()
     }
-    $buttonError.fadeIn().delay(1500).slideUp()
+    if (checkName($name.val()) === false) {
+      $requiredName.insertAfter($name);
+      $requiredName.css({
+        'color': '#aa2c52',
+        'font-weight': '300',
+        'margin-top': '0',
+        'padding-top': '0'
+      });
+      $requiredName.fadeIn().delay(3000).slideUp()
+    }
+    if (checkEmail($email.val()) === false) {
+      $requiredEmail.insertAfter($email);
+      $requiredEmail.css({
+        'color': '#aa2c52',
+        'font-weight': '300',
+        'margin-top': '0',
+        'padding-top': '0'
+      });
+      $requiredEmail.fadeIn().delay(3000).slideUp()
+    }
+
+    if (checkZip($zip.val()) == false || checkCVV($cvv.val()) == false || checkCard($ccNum.val()) == false) {
+      $required.insertAfter($creditCardDiv.children().eq(2));
+      $required.css({
+        'color': '#aa2c52',
+        'font-weight': '300',
+        'margin-top': '0',
+        'padding-top': '0'
+      });
+      $required.fadeIn().delay(3000).slideUp()
+    }
+    $buttonError.fadeIn().delay(3000).slideUp()
     event.stopPropagation();
     event.preventDefault();
+
   }
 });
 
@@ -334,7 +367,7 @@ $button.on('click', function (event) {
 
 // checks name, lowercase letters only
 function checkName(name) {
-  return /^[a-z, A-Z]*\s*$/.test(name);
+  return /^[a-z, A-Z]+\s*$/.test(name);
 }
 
 // checks for standard email
