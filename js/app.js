@@ -23,6 +23,7 @@ const $h5cvv = $('<h5>Please enter a 3 digit CVV. Example: 567.</h5>');
 const $h5zip = $('<h5>Please enter a 5 digit ZIP code. Example: 56712.</h5>');
 const $button = $("button[type='submit']");
 const $buttonError = $('<h5>Sorry, You must complete all required fields.</h5>');
+const $checkboxError = $('<h5>Sorry, You must check atleast one activity.</h5>');
 
 
 
@@ -311,6 +312,15 @@ $button.on('click', function (event) {
     checkCVV($cvv.val())) {
     console.log('everything checks out');
   } else {
+    if(!$('input[type=checkbox]').is(':checked')){
+      $checkboxError.insertAfter($activities);
+      $checkboxError.css({
+        'color': '#aa2c52',
+        'font-weight': '300',
+        'margin-top': '0',
+        'padding-top': '0'
+      });
+    }
     $buttonError.fadeIn().delay(1500).slideUp()
     event.stopPropagation();
     event.preventDefault();
