@@ -1,10 +1,11 @@
 <h1>jQuery Validation Form</h1>
-<h3>View Live Site Here</h3>
+<h3>View Live Site Below:</h3>
 https://c-e-campbell.github.io/Unit_3_Form_Validation/
 <hr>
 <br>
+<h2>Overview:</h2>
 <h4>This project is a basic form with different validation fields. All values are tested against reg expressions and all values must be valid before the form can be submitted. All Js is written with jQuery to show I know the library - Can be done in vanilla Js just as easily!</h4><br>
-<h3>Features</h3>
+<h2>Features:</h2>
 <li>All fields update on keystroke so once you meet the field requirement the message will go away.</li>
 <li>The email field has 2 error messages. One before the @ symbol and the other before the '.'.</li>
 <li>The name field should be auto focused on load.</li>
