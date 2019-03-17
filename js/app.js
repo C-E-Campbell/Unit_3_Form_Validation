@@ -246,7 +246,7 @@ $email.keyup(function () {
 $ccNum.keyup(function () {
   const testCard = $ccNum.val();
   const test = checkCard(testCard);
-  if (test) {
+  if (test || testCard === '') {
     $h5cardNum.remove();
     $ccNum.css('border-color', 'inherit');
   } else {
