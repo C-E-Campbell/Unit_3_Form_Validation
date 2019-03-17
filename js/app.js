@@ -310,9 +310,9 @@ $button.on('click', function (event) {
   if ($('input[type=checkbox]').is(':checked') &&
     checkName($name.val()) &&
     checkEmail($email.val()) &&
-    checkCard($ccNum.val()) &&
     checkZip($zip.val()) &&
-    checkCVV($cvv.val())) {
+    checkCVV($cvv.val()) &&
+    checkCard($ccNum.val()) || $paymentOption.val() === 'bitcoin' || $paymentOption.val() === 'paypal') {
     console.log('everything checks out');
   } else {
     if (!$('input[type=checkbox]').is(':checked')) {
@@ -345,7 +345,6 @@ $button.on('click', function (event) {
       });
       $requiredEmail.fadeIn().delay(3000).slideUp()
     }
-
     if (checkZip($zip.val()) == false || checkCVV($cvv.val()) == false || checkCard($ccNum.val()) == false) {
       $required.insertAfter($creditCardDiv.children().eq(2));
       $required.css({
@@ -355,6 +354,8 @@ $button.on('click', function (event) {
         'padding-top': '0'
       });
       $required.fadeIn().delay(3000).slideUp()
+
+
     }
     $buttonError.fadeIn().delay(3000).slideUp()
     event.stopPropagation();
