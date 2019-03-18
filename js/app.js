@@ -308,7 +308,7 @@ $buttonError.css({
 });
 
 // on submit check and make sure all values are filled in
-// this event handler is used to so the separate errors can be appended to specific fields 
+// this event handler is used so that separate errors can be appended to specific fields 
 // it is not the true factor on if the form can be submitted or not.
 $button.on('click', function (event) {
   if (!$('input[type=checkbox]').is(':checked')) {
