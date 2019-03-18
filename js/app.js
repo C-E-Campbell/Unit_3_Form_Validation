@@ -297,7 +297,7 @@ $cvv.keyup(function () {
   }
 });
 
-// insert error button below form and hide it
+// insert error button below form and hide it - 'display': 'none'
 $buttonError.insertAfter($button);
 $buttonError.css({
   'color': '#aa2c52',
