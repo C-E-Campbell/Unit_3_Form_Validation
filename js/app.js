@@ -29,10 +29,11 @@ const $requiredEmail = $('<h5>* Required</h5>');
 const $requiredName = $('<h5>* Required</h5>');
 
 // sets the intial payment to credit card.
-//intially hide bitcoin and paypal divs
 $($ccPayment).prop('selected', true);
+//intially hide bitcoin and paypal divs
 $creditCardDiv.next().css('display', 'none');
 $creditCardDiv.next().next().css('display', 'none');
+// disables the "choose payment method" option
 $($defPayment).prop('disabled', true);
 // setting the 'Other Job Role' input to hidden  --initial state.
 $($otherTitle).css('display', 'none');
