@@ -202,6 +202,7 @@ $name.keyup(function () {
   }
 });
 
+// the email function has an extra if else. these determine if their is an @ then if there is a dot(.)
 $email.keyup(function () {
   const testEmail = $email.val();
   const test = checkEmail(testEmail);
@@ -241,7 +242,6 @@ $email.keyup(function () {
     $email.css('border-color', '#dadada');
   }
 });
-
 
 $ccNum.keyup(function () {
   const testCard = $ccNum.val();
