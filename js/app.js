@@ -297,70 +297,96 @@ $cvv.keyup(function () {
   }
 });
 
-//Here is the final submit button - it checks all values and if they are = true then we can submit, if not, insert error message under the button.
+// insert error button below form and hide it
+$buttonError.insertAfter($button);
+$buttonError.css({
+  'color': '#aa2c52',
+  'font-weight': '300',
+  'margin-top': '0',
+  'padding-top': '0',
+  'display': 'none'
+});
+
+// on submit check and make sure all values are filled in
+// this event handler is used to so the separate errors can be appended to specific fields 
+// it is not the true factor on if the form can be submitted or not.
 $button.on('click', function (event) {
-  $buttonError.insertAfter($button);
-  $buttonError.css({
-    'color': '#aa2c52',
-    'font-weight': '300',
-    'margin-top': '0',
-    'padding-top': '0',
-    'display': 'none'
-  });
-  if ($('input[type=checkbox]').is(':checked') &&
+  if (!$('input[type=checkbox]').is(':checked')) {
+    $checkboxError.insertAfter($activities);
+    $checkboxError.css({
+      'color': '#aa2c52',
+      'font-weight': '300',
+      'margin-top': '0',
+      'padding-top': '0'
+    });
+    $checkboxError.fadeIn().delay(3000).slideUp()
+  }
+  if (checkName($name.val()) === false) {
+    $requiredName.insertAfter($name);
+    $requiredName.css({
+      'color': '#aa2c52',
+      'font-weight': '300',
+      'margin-top': '0',
+      'padding-top': '0'
+    });
+    $requiredName.fadeIn().delay(3000).slideUp()
+  }
+  if (checkEmail($email.val()) === false) {
+    $requiredEmail.insertAfter($email);
+    $requiredEmail.css({
+      'color': '#aa2c52',
+      'font-weight': '300',
+      'margin-top': '0',
+      'padding-top': '0'
+    });
+    $requiredEmail.fadeIn().delay(3000).slideUp()
+  }
+  if (checkZip($zip.val()) == false || checkCVV($cvv.val()) == false || checkCard($ccNum.val()) == false) {
+    $required.insertAfter($creditCardDiv.children().eq(2));
+    $required.css({
+      'color': '#aa2c52',
+      'font-weight': '300',
+      'margin-top': '0',
+      'padding-top': '0'
+    });
+    $required.fadeIn().delay(3000).slideUp()
+  }
+});
+
+
+// submit button - checks all values and if they are = true then we can submit, if not, insert error message under the button.
+$button.on('click', function (event) {
+  // checks to see if credit card info is filled out
+  if (
+    $('input[type=checkbox]').is(':checked') &&
     checkName($name.val()) &&
     checkEmail($email.val()) &&
     checkZip($zip.val()) &&
     checkCVV($cvv.val()) &&
-    checkCard($ccNum.val()) || $paymentOption.val() === 'bitcoin' || $paymentOption.val() === 'paypal') {
-    console.log('everything checks out');
-  } else {
-    if (!$('input[type=checkbox]').is(':checked')) {
-      $checkboxError.insertAfter($activities);
-      $checkboxError.css({
-        'color': '#aa2c52',
-        'font-weight': '300',
-        'margin-top': '0',
-        'padding-top': '0'
-      });
-      $checkboxError.fadeIn().delay(3000).slideUp()
-    }
-    if (checkName($name.val()) === false) {
-      $requiredName.insertAfter($name);
-      $requiredName.css({
-        'color': '#aa2c52',
-        'font-weight': '300',
-        'margin-top': '0',
-        'padding-top': '0'
-      });
-      $requiredName.fadeIn().delay(3000).slideUp()
-    }
-    if (checkEmail($email.val()) === false) {
-      $requiredEmail.insertAfter($email);
-      $requiredEmail.css({
-        'color': '#aa2c52',
-        'font-weight': '300',
-        'margin-top': '0',
-        'padding-top': '0'
-      });
-      $requiredEmail.fadeIn().delay(3000).slideUp()
-    }
-    if (checkZip($zip.val()) == false || checkCVV($cvv.val()) == false || checkCard($ccNum.val()) == false) {
-      $required.insertAfter($creditCardDiv.children().eq(2));
-      $required.css({
-        'color': '#aa2c52',
-        'font-weight': '300',
-        'margin-top': '0',
-        'padding-top': '0'
-      });
-      $required.fadeIn().delay(3000).slideUp()
+    checkCard($ccNum.val())
+  ) {}
 
+  // checks to see if bitcoin was selected
+  else if (
+    $('input[type=checkbox]').is(':checked') &&
+    checkName($name.val()) &&
+    checkEmail($email.val()) &&
+    $paymentOption.val() === 'bitcoin'
+  ) {}
 
-    }
+  // checks to see if paypal was selected
+  else if (
+    $('input[type=checkbox]').is(':checked') &&
+    checkName($name.val()) &&
+    checkEmail($email.val()) &&
+    $paymentOption.val() === 'paypal'
+  ) {}
+
+  // if all are false do not submit, fade in error button
+  else {
     $buttonError.fadeIn().delay(3000).slideUp()
     event.stopPropagation();
     event.preventDefault();
-
   }
 });
 
